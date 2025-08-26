@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <title>To-do List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font (Gowun Dodum) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="x-icon" href="icon.png">
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+  <!-- SVG Checkbox Definitions -->
+  <svg viewBox="0 0 0 0"  style="position: absolute; z-index: -1; opacity: 0;">
+    <defs>
+      <linearGradient id="boxGradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="25" y2="25">
+        <stop offset="0%" stop-color="#27FDC7" />
+        <stop offset="100%" stop-color="#0FC0F5" />
+      </linearGradient>
+      <path id="todo__box" stroke="url(#boxGradient)"
+        d="M21 12.7v5c0 1.3-1 2.3-2.3 2.3H8.3C7 20 6 19 6 17.7V7.3C6 6 7 5 8.3 5h10.4C20 5 21 6 21 7.3v5.4"></path>
+      <path id="todo__check" stroke="url(#boxGradient)" d="M10 13l2 2 5-5"></path>
+    </defs>
+  </svg>
+
+  <!-- BUTTON-LEISTE -->
+  <div class="top-bar">
+    <svg width="80" height="80" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a90e2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9b59b6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect x="64" y="64" width="384" height="384" rx="32" fill="url(#grad)" />
+  <path d="M140 256l80 80 160-160" stroke="white" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="200" y="180" width="200" height="24" rx="12" fill="white" fill-opacity="0.3"/>
+  <rect x="200" y="260" width="160" height="24" rx="12" fill="white" fill-opacity="0.3"/>
+  <rect x="200" y="340" width="120" height="24" rx="12" fill="white" fill-opacity="0.3"/>
+</svg>
+
+    <button id="newListBtn" class="btn" onclick="openListModal()"><svg width="20" height="20" viewBox="0 0 20 20"
+        fill="currentColor" aria-hidden="true">
+        <title>Add</title>
+        <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg> New list</button>
+    
+    <button class="linkBtn"><a href="quick-notes/index.html">Quick Notes</a></button>
+
+    <label for="base-color-input">Background: <input type="color" id="base-color-input"
+        oninput="setColor(this)"></label>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <span class="search-icon" style="display: flex; align-items: center; width: 100%;">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="margin-right:6px;">
+        <title>Search</title>
+        <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="2" />
+        <line x1="14.2" y1="14.2" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <input type="text" id="searchInput" class="search-input" placeholder=" Search in all lists..."
+        style="width: 80%; min-width: 200px; margin: 0;">
+    </span>
+    <button id="clearSearchBtn" class="clear-search-btn">✕</button>
+  </div>
+
+  <!-- MODAL FÜR NEUE LISTE -->
+  <div id="listModal" class="modal">
+    <div class="modal-content">
+      <h2>Create new list</h2>
+      <input type="text" id="newListName" placeholder="Name of the list..." />
+      <div class="modal-buttons">
+        <button id="createListBtn" type="button" class="add-btn">Create</button><!-- SVG? -->
+        <button id="cancelListBtn" type="button" class="add-btn"
+          style="background:#e26961;color:white;">Cancel</button><!-- SVG? -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL FÜR LISTE UMBENENNEN -->
+  <div id="renameModal" class="modal">
+    <div class="modal-content">
+      <h2>Rename list</h2>
+      <input type="text" id="renameListName" placeholder="New list name..." />
+      <div class="modal-buttons">
+        <!-- Speichern-Button für das Umbenennen der Liste -->
+        <button id="saveRenameBtn" type="button" class="add-btn">Save</button><!-- SVG? -->
+        <button id="cancelRenameBtn" type="button" class="add-btn"
+          style="background:#e26961;color:white;">Cancel</button><!-- SVG? -->
+      </div>
+    </div>
+  </div>
+
+  <!-- EINSTELLUNGS-POPUP -->
+  <div class="popup" id="popup">
+    <div class="popup-content" style="margin-bottom:1em;">
+      <h2>Theme-Settings</h2>
+      Backgroundcolor:
+      <input type="color" id="favorite-color" name="color" value="#222222"
+        onchange="setBackgroundColor(this.value)"><br><br>
+      Dark To-Do-Fields:
+      <button id="whiteTodosBtn" class="theme-btn" onclick="toggleWhiteTodos()">On/Off</button><br>
+      Dark To-Do-Input-Fields:
+      <button id="whiteInputsBtn" class="theme-btn" onclick="toggleWhiteTodosInputs()">On/Off</button>
+    </div>
+    <button class="close-btn" onclick="closePopup()">Save</button><!-- SVG? -->
+  </div>
+  </div>
+
+  <div id="lists-container"></div>
+
+
+
+  <script src="index.js"></script>
+</body>
+
+</html>

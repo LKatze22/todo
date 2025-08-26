@@ -1,0 +1,19 @@
+{
+  "name": "To-do Listen",
+  "short_name": "To-Do",
+  "theme_color": "#f7b32b",
+  "background_color": "#222222",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "scope": "/",
+  "start_url": "/",
+  "description": "A simple to-do list app to manage your tasks efficiently.",
+  "version": "1.0.0",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
