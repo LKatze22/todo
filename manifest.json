@@ -1,8 +1,8 @@
 {
   "name": "To-do Listen",
   "short_name": "To-Do",
-  "theme_color": "#f7b32b",
-  "background_color": "#222222",
+  "theme_color": "#1e1f26",
+  "background_color": "#1e1f26",
   "display": "fullscreen",
   "orientation": "landscape",
   "scope": "/",
