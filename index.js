@@ -3,6 +3,49 @@ function sanitizeHTML(text) {
   div.textContent = text;
   return div.innerHTML;
 }
+
+// Secure mention processing that creates DOM elements instead of HTML strings
+function processTextForMentions(text) {
+  // First sanitize the text
+  const sanitizedText = sanitizeHTML(text);
+  
+  // Create a temporary container to work with
+  const tempDiv = document.createElement('div');
+  tempDiv.textContent = sanitizedText;
+  
+  // Find and replace mentions safely
+  const textContent = tempDiv.textContent;
+  const mentionRegex = /@(\w+)/g;
+  
+  if (!mentionRegex.test(textContent)) {
+    return sanitizedText;
+  }
+  
+  // Split text and rebuild with mention spans
+  const parts = textContent.split(mentionRegex);
+  const fragment = document.createDocumentFragment();
+  
+  for (let i = 0; i < parts.length; i++) {
+    if (i % 2 === 0) {
+      // Regular text
+      if (parts[i]) {
+        fragment.appendChild(document.createTextNode(parts[i]));
+      }
+    } else {
+      // This is a mention username
+      const mentionSpan = document.createElement('span');
+      mentionSpan.className = 'mention';
+      mentionSpan.textContent = '@' + parts[i];
+      fragment.appendChild(mentionSpan);
+    }
+  }
+  
+  // Convert fragment back to HTML string safely
+  const tempContainer = document.createElement('div');
+  tempContainer.appendChild(fragment);
+  return tempContainer.innerHTML;
+}
+
 // --- Hilfsfunktionen für Local Storage ---
 const STORAGE_KEY = "todolists_data";
 
@@ -249,11 +292,6 @@ function showNoResults() {
   }
 }
 
-// @Mention functionality
-function processTextForMentions(text) {
-  return text.replace(/@(\w+)/g, '<span class="mention">@$1</span>');
-}
-
 function createTodoList(listId) {
   const container = document.createElement("div");
   container.className = "todo-list-container";
@@ -329,7 +367,7 @@ function createTodoList(listId) {
 
     const span = document.createElement("span");
     span.className = "todo__text";
-    span.innerHTML = sanitizeHTML(processTextForMentions(todo.text));
+    span.innerHTML = processTextForMentions(todo.text);
 
     const dateSpan = document.createElement("span");
     dateSpan.className = "todo__date";
@@ -393,7 +431,7 @@ function createTodoList(listId) {
     if (todo.notes) {
       const notesDisplay = document.createElement("div");
       notesDisplay.className = "notes-display";
-      notesDisplay.innerHTML = sanitizeHTML(processTextForMentions(todo.notes));
+      notesDisplay.innerHTML = processTextForMentions(todo.notes);
 
       const notesActions = document.createElement("div");
       notesActions.className = "notes-actions";
@@ -601,23 +639,7 @@ function createTodoList(listId) {
       return false;
     }
 
-    todo.text = sanitizeHTML(newText);
-    return true;
-  }
-  // Validierung beim Bearbeiten
-  function editTodo(todo, editInput) {
-    const newText = editInput.value.trim();
-
-    if (!newText) {
-      alert("Text darf nicht leer sein");
-      return false;
-    }
-    if (newText.length > 200) {
-      alert("Text zu lang (max 200 Zeichen)");
-      return false;
-    }
-
-    todo.text = sanitizeHTML(newText);
+    todo.text = newText;
     return true;
   }
 
@@ -630,7 +652,7 @@ function createTodoList(listId) {
       return false;
     }
 
-    todo.notes = sanitizeHTML(noteText);
+    todo.notes = noteText;
     return true;
   }
 
