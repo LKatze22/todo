@@ -1,51 +1,41 @@
+
 function sanitizeHTML(text) {
+  if (typeof text !== 'string') {
+    return '';
+  }
+  
+ 
   const div = document.createElement("div");
   div.textContent = text;
-  return div.innerHTML;
+  
+  
+  return div.innerHTML
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;');
 }
 
-// Secure mention processing that creates DOM elements instead of HTML strings
 function processTextForMentions(text) {
-  // First sanitize the text
+  
   const sanitizedText = sanitizeHTML(text);
   
-  // Create a temporary container to work with
-  const tempDiv = document.createElement('div');
-  tempDiv.textContent = sanitizedText;
   
-  // Find and replace mentions safely
-  const textContent = tempDiv.textContent;
   const mentionRegex = /@(\w+)/g;
   
-  if (!mentionRegex.test(textContent)) {
-    return sanitizedText;
-  }
   
-  // Split text and rebuild with mention spans
-  const parts = textContent.split(mentionRegex);
-  const fragment = document.createDocumentFragment();
-  
-  for (let i = 0; i < parts.length; i++) {
-    if (i % 2 === 0) {
-      // Regular text
-      if (parts[i]) {
-        fragment.appendChild(document.createTextNode(parts[i]));
-      }
-    } else {
-      // This is a mention username
-      const mentionSpan = document.createElement('span');
-      mentionSpan.className = 'mention';
-      mentionSpan.textContent = '@' + parts[i];
-      fragment.appendChild(mentionSpan);
+  return sanitizedText.replace(mentionRegex, (match, username) => {
+    
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+      return match; 
     }
-  }
-  
-  // Convert fragment back to HTML string safely
-  const tempContainer = document.createElement('div');
-  tempContainer.appendChild(fragment);
-  return tempContainer.innerHTML;
+    
+    
+    return `<span class="mention">@${username}</span>`;
+  });
 }
-
 // --- Hilfsfunktionen für Local Storage ---
 const STORAGE_KEY = "todolists_data";
 
@@ -55,7 +45,11 @@ function saveToStorage(lists) {
   } catch (e) {
     /* ignore */
   }
+  updateDashboard();
 }
+document.addEventListener("DOMContentLoaded", () => {
+  updateDashboard();
+});
 
 function loadFromStorage() {
   try {
@@ -186,7 +180,7 @@ function createCheckbox(completed = false) {
   return { wrapper, checkbox };
 }
 
-// Die zentrale Datenstruktur
+
 let listsData = [];
 let currentRenameListId = null;
 
@@ -626,6 +620,7 @@ function createTodoList(listId) {
     input.value = "";
     dateInput.value = "";
     prioritySelect.value = "low";
+    showNotification("Task added successfully!");
   }
   function editTodo(todo, editInput) {
     const newText = editInput.value.trim();
@@ -889,6 +884,20 @@ function setColor(input) {
   `
   );
 }
+function showNotification(message) {
+  const notification = $(`
+                    <div class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg fade-in z-50">
+                        <i class="fas fa-check-circle mr-2"></i>${message}
+                    </div>
+                `);
+
+  $("body").append(notification);
+
+  setTimeout(() => {
+    notification.fadeOut(() => notification.remove());
+  }, 3000);
+}
+
 function getLightnessFromHex(hex) {
   hex = hex.replace(/^#/, "");
   const r = parseInt(hex.substr(0, 2), 16);
@@ -898,4 +907,25 @@ function getLightnessFromHex(hex) {
   const brightness = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
 
   return +(brightness * 100).toFixed(2); // Return lightness as a number between 0 and 100
+}
+
+function updateDashboard() {
+  const lists = loadFromStorage();   // Array von Listen holen
+  if (!lists) return;
+
+  let total = 0;
+  let done = 0;
+
+  lists.forEach(list => {
+    if (Array.isArray(list.todos)) {
+      total += list.todos.length;
+      done += list.todos.filter(todo => todo.completed).length;
+    }
+  });
+
+  const open = total - done;
+
+  document.getElementById("total-count").textContent = total;
+  document.getElementById("done-count").textContent = done;
+  document.getElementById("open-count").textContent = open;
 }
