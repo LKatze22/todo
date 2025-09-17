@@ -929,3 +929,17 @@ function updateDashboard() {
   document.getElementById("done-count").textContent = done;
   document.getElementById("open-count").textContent = open;
 }
+
+
+
+
+
+document.onkeydown = function (e) {
+  // Detect if Ctrl + Shift is pressed together
+  if (e.ctrlKey && e.shiftKey) {
+    // Detect if L is pressed after Ctrl + Shift
+  if (e.key == "L") {
+    openListModal();
+  }
+}
+};
