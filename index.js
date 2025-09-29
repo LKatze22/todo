@@ -343,13 +343,15 @@ function createTodoList(listId) {
     todos.forEach((todo, idx) => {
       ul.appendChild(createTodoElement(todo, idx));
     });
+    
     updateProgress();
   }
-
+  
   function createTodoElement(todo, idx) {
     const li = document.createElement("li");
     li.className = "todo";
     if (todo.completed) li.classList.add("completed");
+    li.setAttribute("tabindex", "0");
 
     const { wrapper, checkbox } = createCheckbox(todo.completed);
 
@@ -943,3 +945,14 @@ document.onkeydown = function (e) {
   }
 }
 };
+document.onkeydown = function (e) {
+  // Detect if Ctrl + Shift is pressed together
+  if (e.key === "Escape") {
+    const modals = document.querySelectorAll(".modal");
+    modals.forEach((modal) => {
+      if (modal.style.display === "flex") {
+        modal.style.display = "none";
+      }
+    });
+  }
+}
