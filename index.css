@@ -724,7 +724,7 @@ label[for="base-color-input"]:hover {
 }
 
 /* Media Queries */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 450px) {
   .hamburger-menu {
     display: block;
   }
@@ -739,5 +739,19 @@ label[for="base-color-input"]:hover {
   
   body {
     padding-top: 80px;
+  }
+
+  .rename-text,
+  .delete-text {
+    display: none;
+  }
+  
+  .save-list-btn,
+  .delete-list-btn {
+    padding: 8px !important;
+  }
+
+  .rename-text {
+    display: none;
   } 
 }
