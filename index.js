@@ -725,7 +725,7 @@ document.addEventListener("DOMContentLoaded", function () {
     header.className = "list-header";
     header.id = "list-header-" + id;
     const heading = document.createElement("h3");
-    heading.textContent = `${name} (Nr. ${id.split("_")[1]})`;
+    heading.textContent = `${name} `;
 
     const saveBtn = document.createElement("button");
     saveBtn.innerHTML = `
