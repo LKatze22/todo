@@ -887,7 +887,7 @@ function setColor(input) {
   );
 }
 function showNotification(message) {
-  const notification = $(`
+  const notification = (`
                     <div class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg fade-in z-50">
                         <i class="fas fa-check-circle mr-2"></i>${message}
                     </div>
