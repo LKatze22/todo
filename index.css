@@ -12,7 +12,6 @@ body {
   --secondary-text-color: oklch(from var(--text-color) l c h / 0.6);
   --delete-color: #e74c3c;
   --delete-color-hover: #c0392b;
-
 }
 h1 a {
   color: #f0f0f0;
@@ -36,9 +35,9 @@ button:hover {
   transform: scale(1.05);
 }
 
-
 .top-bar {
   display: flex;
+  position: sticky;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1em;
@@ -73,7 +72,7 @@ label[for="base-color-input"]:hover {
 .list-header {
   margin: 1em 0 0.5em 0;
   font-size: 1.2em;
-  color:var(--text-color);
+  color: var(--text-color);
   display: flex;
   align-items: center;
   gap: 0.5em;
@@ -97,7 +96,7 @@ label[for="base-color-input"]:hover {
   background: var(--surface-color);
   color: var(--text-color);
   cursor: pointer;
-  
+
   flex: 1 1 auto;
 }
 .linkBtn a {
@@ -176,7 +175,7 @@ label[for="base-color-input"]:hover {
   color: var(--text-color);
 }
 .delete {
-  background:var(--delete-color);
+  background: var(--delete-color);
   color: #fff;
 }
 
@@ -184,7 +183,7 @@ label[for="base-color-input"]:hover {
   background: var(--delete-color-hover);
 }
 .delete-list-btn {
-  background-color:var(--delete-color);
+  background-color: var(--delete-color);
   color: var(--text-color);
   border: none;
   padding: 8px 16px;
@@ -194,7 +193,7 @@ label[for="base-color-input"]:hover {
   transition: background-color 0.3s;
 }
 .delete-list-btn:hover {
-  background-color:var(--delete-color-hover);
+  background-color: var(--delete-color-hover);
 }
 .save-list-btn {
   background-color: var(--brand-color);
@@ -243,7 +242,7 @@ label[for="base-color-input"]:hover {
   padding: 0;
 }
 .todo-list-container {
-  background:var(--base-color);
+  background: var(--base-color);
   padding: 1em;
   border-radius: 1em;
   box-shadow: 0 8px 32px #0008;
@@ -279,7 +278,7 @@ label[for="base-color-input"]:hover {
   padding: 5px;
 }
 .search-highlight {
-  background-color:var(--brand-color);
+  background-color: var(--brand-color);
 }
 
 /* Notes Styles */
@@ -297,7 +296,6 @@ label[for="base-color-input"]:hover {
   margin-top: 0.5em;
   padding-top: 0.5em;
   border-top: 1px solid var(--surface-color);
-  
 }
 .notes-toggle {
   background: var(--base-color);
@@ -359,7 +357,7 @@ label[for="base-color-input"]:hover {
 /* @Mention Styles */
 .mention {
   background-color: var(--brand-color);
-  color:var(--text-color);
+  color: var(--text-color);
   padding: 2px 4px;
   border-radius: 3px;
   font-weight: bold;
@@ -376,6 +374,7 @@ label[for="base-color-input"]:hover {
   display: flex;
   align-items: center;
 }
+
 .priority-high {
   background: rgba(255, 107, 107, 0.25);
   color: #ff6b6b;
@@ -398,6 +397,14 @@ label[for="base-color-input"]:hover {
   border-radius: 8px;
   color: var(--text-color);
   font-size: 1rem;
+  cursor: pointer;
+}
+.priority-select option {
+  background: var(--base-color);
+  color: var(--text-color);
+}
+.priority-select option:hover {
+  background: var(--surface-color);
   cursor: pointer;
 }
 .task-date {
@@ -440,9 +447,6 @@ label[for="base-color-input"]:hover {
   color: var(--text-color);
   font-size: 0.95em;
 }
-
-
-
 
 .popup {
   background-color: #282828;
@@ -599,14 +603,13 @@ label[for="base-color-input"]:hover {
   font-style: italic;
 }
 
-
 .dashboard {
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 10px;
   min-height: 80px;
-  border-top: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   background: var(--surface-color);
   border-radius: 0.5rem;
 }
@@ -636,4 +639,105 @@ label[for="base-color-input"]:hover {
   align-items: center;
   justify-content: center;
   padding: 10px;
+}
+
+.hamburger-menu {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  
+  z-index: 1000;
+
+}
+
+.hamburger-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--surface-color);
+  border-radius: 8px;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+}
+
+.hamburger-button span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.hamburger-button.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-button.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-button.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--base-color);
+  z-index: 999;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav.active {
+  transform: translateX(0);
+}
+
+.mobile-nav-content {
+  padding: 5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobile-nav-item {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  background: var(--surface-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  .hamburger-menu {
+    display: block;
+  }
+  
+  .mobile-nav {
+    display: block;
+  }
+  
+  .top-bar {
+    display: none;
+  }
+  
+  body {
+    padding-top: 80px;
+  } 
 }

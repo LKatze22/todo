@@ -15,6 +15,30 @@
 </head>
 
 <body>
+  <div class="hamburger-menu">
+    <button class="hamburger-button" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav">
+    <div class="mobile-nav-content">
+      <button id="mobileNewListBtn" class="mobile-nav-item">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        New List
+      </button>
+      <a href="lkatze22.github.io" class="mobile-nav-item">My Projects</a>
+      <div class="mobile-nav-item">
+        <label for="mobile-color-input">Background:
+          <input type="color" id="mobile-color-input" oninput="setColor(this)">
+        </label>
+      </div>
+    </div>
+  </nav>
 
   <!-- SVG Checkbox Definitions -->
   <svg viewBox="0 0 0 0" style="position: absolute; z-index: -1; opacity: 0;">
@@ -48,11 +72,11 @@
 
     <button id="newListBtn" class="btn" onclick="openListModal()"><svg width="20" height="20" viewBox="0 0 20 20"
         fill="currentColor" aria-hidden="true">
-        <title>Add</title>
+        <title>New list</title>
         <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
       </svg> New list</button>
 
-    <button class="linkBtn"><a href="lkatze22.github.io">Meine Projekte</a></button>
+    <button class="linkBtn" tabindex="0"><a href="lkatze22.github.io">Meine Projekte</a></button>
 
     <label for="base-color-input">Background: <input type="color" id="base-color-input"
         oninput="setColor(this)"></label>
@@ -95,7 +119,8 @@
   </div>
 
   <!-- Search Bar -->
-  <div class="search-container">
+  <div class="search-container"
+    style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 1em;">
     <span class="search-icon" style="display: flex; align-items: center; width: 100%;">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="margin-right:6px;">
         <title>Search</title>

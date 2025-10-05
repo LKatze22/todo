@@ -956,3 +956,30 @@ document.onkeydown = function (e) {
     });
   }
 }
+
+// Hamburger Menu functionality
+const hamburgerButton = document.querySelector('.hamburger-button');
+const mobileNav = document.querySelector('.mobile-nav');
+
+hamburgerButton.addEventListener('click', () => {
+  hamburgerButton.classList.toggle('active');
+  mobileNav.classList.toggle('active');
+});
+
+// Close mobile nav when clicking mobile new list button
+document.getElementById('mobileNewListBtn').addEventListener('click', () => {
+  openListModal();
+  hamburgerButton.classList.remove('active');
+  mobileNav.classList.remove('active');
+});
+
+// Close mobile nav when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.mobile-nav') && 
+      !e.target.closest('.hamburger-button') && 
+      mobileNav.classList.contains('active')) {
+    hamburgerButton.classList.remove('active');
+    mobileNav.classList.remove('active');
+  }
+});
+
