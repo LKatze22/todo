@@ -1,1 +1,94 @@
-This repository contains a simple and user-friendly Todo application built with JavaScript, CSS, and HTML. It allows users to manage their daily tasks by adding, editing, marking as complete, and deleting todos. The app features a clean, functional design, making it easy to stay organized and productive.
+# Todo
+
+A simple, user-friendly Todo web application with all the features you need to manage daily tasks: add, edit, complete, and remove tasks.
+
+## Table of contents
+
+- [Features](#features)
+- [Screenshot](#screenshot)
+- [Demo](#demo)
+- [Install](#install)
+- [Usage](#usage)
+- [Development](#development)
+- [Built with](#built-with)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Features
+
+- Add new tasks with a title (and optional details).
+- Edit existing tasks.
+- Mark tasks as completed / uncompleted.
+- Delete tasks.
+- Simple, responsive UI built with HTML, CSS, and JavaScript.
+
+## Screenshot
+
+Replace the image path below with a real screenshot of your app. Example: `assets/screenshot.png`.
+
+![App screenshot](docs/screenshot-placeholder.png)
+
+> Screenshot placeholder — replace `docs/screenshot-placeholder.png` with your actual screenshot file or a link to an image.
+
+## Demo
+
+If you have a live demo, add the link here:
+
+- Live demo: https://your-demo-url.example (replace with actual URL)
+
+## Install
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/LKatze22/todo.git
+   cd todo
+   ```
+
+2. Open index.html in your browser or serve the folder with a simple static server:
+
+   ```bash
+   npx http-server .
+   # or
+   python -m http.server
+   ```
+
+## Usage
+
+- Open the app in a browser.
+- Use the input to add tasks.
+- Click a task to edit or mark as complete.
+- Use the delete button to remove tasks.
+
+## Development
+
+- The project uses plain HTML, CSS, and JavaScript. No build step required.
+- If you add dependencies or a build tool, describe steps here.
+
+## Built with
+
+- JavaScript (~56%)
+- CSS (~29%)
+- HTML (~15%)
+
+(Percentages are approximate and based on the repository language composition.)
+
+## Contributing
+
+Contributions are welcome. To contribute:
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/your-feature`.
+3. Commit your changes and push: `git push origin feature/your-feature`.
+4. Open a pull request describing your changes.
+
+Please follow standard git and PR practices.
+
+## License
+
+Add your license here (for example, MIT). If you don't want to include a license, remove this section.
+
+## Contact
+
+Created by LKatze22 — feel free to open an issue or pull request with questions or improvements.
