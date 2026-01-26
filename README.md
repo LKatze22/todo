@@ -25,11 +25,7 @@ A simple, user-friendly Todo web application with all the features you need to m
 
 ## Screenshot
 
-Replace the image path below with a real screenshot of your app. Example: `assets/screenshot.png`.
-
-![App screenshot](docs/screenshot-placeholder.png)
-
-> Screenshot placeholder — replace `docs/screenshot-placeholder.png` with your actual screenshot file or a link to an image.
+![App screenshot](todo.png)
 
 ## Demo
 
