@@ -29,9 +29,7 @@ A simple, user-friendly Todo web application with all the features you need to m
 
 ## Demo
 
-If you have a live demo, add the link here:
-
-- Live demo: https://your-demo-url.example (replace with actual URL)
+- Live demo: https://lkatze22.github.io/index.html
 
 ## Install
 
