@@ -29,7 +29,7 @@ A simple, user-friendly Todo web application with all the features you need to m
 
 ## Demo
 
-- Live demo: https://lkatze22.github.io/index.html
+- Live demo: https://lkatze22.github.io/todo/index.html
 
 ## Install
 
