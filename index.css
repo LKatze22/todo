@@ -1,17 +1,47 @@
 body {
-  --favorite-color: #2c2f38;
-  background: var(--base-color);
-  color: #eee;
   font-family: "Gowun Dodum", sans-serif;
   margin: 0;
   padding: 20px;
-  --brand-color: oklch(from var(--base-color) calc(l * 3) calc(c * 5) h);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Dark theme (default) */
+body {
   --base-color: #1e1f26;
-  --surface-color: oklch(from var(--base-color) calc(l * 1.2) c h);
+  --surface-color: #2c2f38;
   --text-color: #f0f0f0;
-  --secondary-text-color: oklch(from var(--text-color) l c h / 0.6);
+  --secondary-text-color: rgba(240, 240, 240, 0.6);
+  --brand-color: #4a90e2;
   --delete-color: #e74c3c;
   --delete-color-hover: #c0392b;
+  background: var(--base-color);
+  color: var(--text-color);
+}
+
+/* Light theme */
+body.light-theme {
+  --base-color: #f5f5f5;
+  --surface-color: #ffffff;
+  --text-color: #1e1f26;
+  --secondary-text-color: rgba(30, 31, 38, 0.6);
+  --brand-color: #4a90e2;
+  --delete-color: #e74c3c;
+  --delete-color-hover: #c0392b;
+}
+
+/* Add subtle shadows in light theme */
+body.light-theme .top-bar,
+body.light-theme .todo,
+body.light-theme .todo-list-container,
+body.light-theme .dashboard .stat {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .new-task,
+body.light-theme .search-input {
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 h1 a {
   color: #f0f0f0;
@@ -113,6 +143,21 @@ label[for="base-color-input"]:hover {
   font-weight: 500;
   transition: all 0.2s ease;
   flex: 1 1 auto;
+}
+#themeToggleBtn {
+  background: var(--surface-color);
+  color: var(--text-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 .add-btn {
   padding: 0.45em 1em;
@@ -656,4 +701,7 @@ footer {
 .footer-link {
   color: var(--text-color);
   text-decoration: none;
+}
+.footer-link:hover {
+  text-decoration: underline;
 }
