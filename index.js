@@ -716,14 +716,14 @@ document.addEventListener("DOMContentLoaded", function () {
     header.className = "list-header";
     header.id = "list-header-" + id;
     const heading = document.createElement("h3");
-    heading.textContent = `${name} (Nr. ${id.split("_")[1]})`;
+    heading.textContent = `${name} `;
 
     const saveBtn = document.createElement("button");
     saveBtn.innerHTML = `
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <title>Edit</title>
     <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-  </svg> Rename list`;
+  </svg><span class="rename-text"> Rename list</span>`;
     saveBtn.className = "save-list-btn";
 
     const deleteBtn = document.createElement("button");
@@ -731,7 +731,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <title>Delete</title>
     <path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.88c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/>
-  </svg> Delete list`;
+  </svg><span class="delete-text"> Delete list</span>`;
     deleteBtn.className = "delete-list-btn";
 
     const todoListElement = createTodoList(id);
@@ -878,11 +878,11 @@ function setColor(input) {
   );
 }
 function showNotification(message) {
-  const notification = $(`
+  const notification = `
                     <div class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg fade-in z-50">
                         <i class="fas fa-check-circle mr-2"></i>${message}
                     </div>
-                `);
+                `;
 
   $("body").append(notification);
 
@@ -943,3 +943,38 @@ document.onkeydown = function (e) {
     });
   }
 };
+
+// Hamburger Menu functionality
+const hamburgerButton = document.querySelector(".hamburger-button");
+const mobileNav = document.querySelector(".mobile-nav");
+
+hamburgerButton.addEventListener("click", () => {
+  hamburgerButton.classList.toggle("active");
+  mobileNav.classList.toggle("active");
+});
+
+// Close mobile nav when clicking mobile new list button
+document.getElementById("mobileNewListBtn").addEventListener("click", () => {
+  openListModal();
+  hamburgerButton.classList.remove("active");
+  mobileNav.classList.remove("active");
+});
+
+// Close mobile nav when clicking outside
+document.addEventListener("click", (e) => {
+  if (
+    !e.target.closest(".mobile-nav") &&
+    !e.target.closest(".hamburger-button") &&
+    mobileNav.classList.contains("active")
+  ) {
+    hamburgerButton.classList.remove("active");
+    mobileNav.classList.remove("active");
+  }
+});
+
+if (window.innerWidth <= 340) {
+  const saveListButton = document.querySelector(".save-list-btn");
+  if (saveListButton) {
+    saveListButton.textContent = ""; // Remove the description on mobile devices
+  }
+}
