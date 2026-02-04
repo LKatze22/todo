@@ -12,9 +12,24 @@ body {
   --secondary-text-color: oklch(from var(--text-color) l c h / 0.6);
   --delete-color: #e74c3c;
   --delete-color-hover: #c0392b;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
+
+/* Light Mode Styles */
+body.light-mode {
+  --base-color: #f5f5f5;
+  --surface-color: #ffffff;
+  --text-color: #1a1a1a;
+  --secondary-text-color: rgba(26, 26, 26, 0.6);
+  --brand-color: #4a90e2;
+  --delete-color: #e74c3c;
+  --delete-color-hover: #c0392b;
+}
+
 h1 a {
-  color: #f0f0f0;
+  color: var(--text-color);
   text-decoration: none;
 }
 
@@ -47,7 +62,9 @@ button:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   margin-bottom: 1em;
 }
-label[for="base-color-input"] {
+
+/* Theme Toggle Switch */
+.theme-toggle-container {
   background: var(--surface-color);
   padding: 0.75rem 1.5rem;
   border-radius: 0.5em;
@@ -56,19 +73,80 @@ label[for="base-color-input"] {
   align-items: center;
   gap: 1em;
   flex: 1 1 auto;
-  cursor: pointer;
 }
-label[for="base-color-input"]:hover {
+
+.theme-toggle-container:hover {
   transition: all 0.4s ease-in-out;
   transform: scale(1.1);
 }
-#base-color-input {
-  width: 2em;
-  height: 2em;
-  background: none;
-  border: none;
-  cursor: pointer;
+
+.theme-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
+
+.theme-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--text-color);
+}
+
+/* From Uiverse.io by RaspberryBee */
+/* The switch - the box around the slider */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(182, 182, 182);
+  transition: 0.4s;
+  border-radius: 10px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 8px;
+  left: 0.3em;
+  bottom: 0.3em;
+  transform: rotate(270deg);
+  background-color: rgb(255, 255, 255);
+  transition: 0.4s;
+}
+
+.switch input:checked + .slider {
+  background-color: #21cc4c;
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.5em);
+}
+
 .list-header {
   margin: 1em 0 0.5em 0;
   font-size: 1.2em;
@@ -120,7 +198,7 @@ label[for="base-color-input"]:hover {
   border: none;
   border-radius: 0.3em;
   background: var(--brand-color);
-  color: var(--text-color);
+  color: white;
   cursor: pointer;
   margin-left: 0.2em;
 }
@@ -172,7 +250,7 @@ label[for="base-color-input"]:hover {
 }
 .edit {
   background: var(--brand-color);
-  color: var(--text-color);
+  color: white;
 }
 .delete {
   background: var(--delete-color);
@@ -184,7 +262,7 @@ label[for="base-color-input"]:hover {
 }
 .delete-list-btn {
   background-color: var(--delete-color);
-  color: var(--text-color);
+  color: white;
   border: none;
   padding: 8px 16px;
   cursor: pointer;
@@ -197,7 +275,7 @@ label[for="base-color-input"]:hover {
 }
 .save-list-btn {
   background-color: var(--brand-color);
-  color: var(--text-color);
+  color: white;
   border: none;
   padding: 8px 16px;
   cursor: pointer;
@@ -206,12 +284,9 @@ label[for="base-color-input"]:hover {
   font-size: 1em;
   transition: background-color 0.3s;
 }
-/*.save-list-btn:hover {
-  background-color: #27ae60;
-}*/
 #add-list-btn {
   background-color: var(--brand-color);
-  color: var(--text-color);
+  color: white;
   border: none;
   padding: 8px 16px;
   cursor: pointer;
@@ -245,8 +320,12 @@ label[for="base-color-input"]:hover {
   background: var(--base-color);
   padding: 1em;
   border-radius: 1em;
-  box-shadow: 0 8px 32px #0008;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   margin-bottom: 2em;
+}
+
+body.light-mode .todo-list-container {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* Search Styles */
@@ -279,6 +358,9 @@ label[for="base-color-input"]:hover {
 }
 .search-highlight {
   background-color: var(--brand-color);
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
 }
 
 /* Notes Styles */
@@ -327,7 +409,7 @@ label[for="base-color-input"]:hover {
   padding: 0.5em;
   border-radius: 0.3em;
   margin-bottom: 0.5em;
-  border: 1px solid #555;
+  border: 1px solid var(--secondary-text-color);
 }
 .notes-actions {
   display: flex;
@@ -347,7 +429,7 @@ label[for="base-color-input"]:hover {
 }
 .notes-edit {
   background: var(--brand-color);
-  color: #222;
+  color: white;
 }
 .notes-delete {
   background: var(--delete-color);
@@ -357,7 +439,7 @@ label[for="base-color-input"]:hover {
 /* @Mention Styles */
 .mention {
   background-color: var(--brand-color);
-  color: var(--text-color);
+  color: white;
   padding: 2px 4px;
   border-radius: 3px;
   font-weight: bold;
@@ -449,8 +531,8 @@ label[for="base-color-input"]:hover {
 }
 
 .popup {
-  background-color: #282828;
-  color: white;
+  background-color: var(--surface-color);
+  color: var(--text-color);
   border: none;
   width: 380px;
   text-align: center;
@@ -578,7 +660,7 @@ label[for="base-color-input"]:hover {
   border-radius: 0.5rem;
   border: 1px solid var(--secondary-text-color);
   background-color: var(--surface-color);
-  color: #eee;
+  color: var(--text-color);
   font-size: 1rem;
 }
 .modal-buttons {
@@ -616,13 +698,11 @@ label[for="base-color-input"]:hover {
   border-radius: 0.5rem;
 }
 
-/* Korrigiere den Selektor für die SVGs */
 .dashboard .stat svg {
   width: 24px;
   height: 24px;
   display: block;
   margin: 0 auto;
-  /* Stelle sicher, dass die SVG-Farbe zur Textfarbe passt */
   fill: currentColor;
 }
 
@@ -725,7 +805,7 @@ label[for="base-color-input"]:hover {
 }
 
 /* Media Queries */
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 750px) {
   .hamburger-menu {
     display: block;
   }

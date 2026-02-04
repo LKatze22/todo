@@ -41,6 +41,7 @@ function saveToStorage(lists) {
 }
 document.addEventListener("DOMContentLoaded", () => {
   updateDashboard();
+  loadTheme();
 });
 
 function loadFromStorage() {
@@ -54,35 +55,70 @@ function loadFromStorage() {
 }
 
 // ** Theme etc. **
-function setBackgroundColor(color) {
-  document.documentElement.style.setProperty("--favorite-color", color);
-  document.body.style.setProperty("background", color);
-  document.getElementById("favorite-color").value = color;
+function toggleTheme() {
+  const body = document.body;
+  const themeLabel = document.getElementById("theme-label");
+  const themeCheckbox = document.getElementById("theme-checkbox");
+  const mobileThemeCheckbox = document.getElementById("mobile-theme-checkbox");
+
+  body.classList.toggle("light-mode");
+
+  const isLightMode = body.classList.contains("light-mode");
+
+  if (themeLabel) {
+    themeLabel.textContent = isLightMode ? "Light Mode" : "Dark Mode";
+  }
+
+  // Sync checkbox states
+  if (themeCheckbox) {
+    themeCheckbox.checked = isLightMode;
+  }
+  if (mobileThemeCheckbox) {
+    mobileThemeCheckbox.checked = isLightMode;
+  }
+
   try {
-    localStorage.setItem("favoriteColor", color);
-  } catch (e) {}
+    localStorage.setItem("theme", isLightMode ? "light" : "dark");
+  } catch (e) {
+    console.error("Failed to save theme preference:", e);
+  }
 }
 
-function toggleWhiteTodos() {
-  const body = document.body;
-  const btn = document.getElementById("whiteTodosBtn");
-  const active = body.classList.toggle("white-todo-bg");
-  btn.classList.toggle("active", active);
-  btn.textContent = active ? "Off" : "On";
+// Load saved theme on page load
+function loadTheme() {
   try {
-    localStorage.setItem("whiteTodoBg", active ? "1" : "");
-  } catch (e) {}
-}
+    const savedTheme = localStorage.getItem("theme");
+    const themeLabel = document.getElementById("theme-label");
+    const themeCheckbox = document.getElementById("theme-checkbox");
+    const mobileThemeCheckbox = document.getElementById(
+      "mobile-theme-checkbox",
+    );
 
-function toggleWhiteTodosInputs() {
-  const body = document.body;
-  const btn = document.getElementById("whiteInputsBtn");
-  const active = body.classList.toggle("white-todoInputs-bg");
-  btn.classList.toggle("active", active);
-  btn.textContent = active ? "Off" : "On";
-  try {
-    localStorage.setItem("whiteTodoInputsBg", active ? "1" : "");
-  } catch (e) {}
+    if (savedTheme === "light") {
+      document.body.classList.add("light-mode");
+      if (themeLabel) {
+        themeLabel.textContent = "Light Mode";
+      }
+      if (themeCheckbox) {
+        themeCheckbox.checked = true;
+      }
+      if (mobileThemeCheckbox) {
+        mobileThemeCheckbox.checked = true;
+      }
+    } else {
+      if (themeLabel) {
+        themeLabel.textContent = "Dark Mode";
+      }
+      if (themeCheckbox) {
+        themeCheckbox.checked = false;
+      }
+      if (mobileThemeCheckbox) {
+        mobileThemeCheckbox.checked = false;
+      }
+    }
+  } catch (e) {
+    console.error("Failed to load theme preference:", e);
+  }
 }
 
 function openPopup() {
@@ -866,17 +902,6 @@ function openListModal() {
   document.getElementById("newListName").focus();
 }
 
-function setColor(input) {
-  const lightness = getLightnessFromHex(input.value);
-  const textColor = lightness > 60 ? "black" : "white";
-  document.body.setAttribute(
-    "style",
-    `
-    --base-color: ${input.value};
-    --text-color: ${textColor};
-  `,
-  );
-}
 function showNotification(message) {
   const notification = `
                     <div class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg fade-in z-50">
@@ -889,17 +914,6 @@ function showNotification(message) {
   setTimeout(() => {
     notification.fadeOut(() => notification.remove());
   }, 3000);
-}
-
-function getLightnessFromHex(hex) {
-  hex = hex.replace(/^#/, "");
-  const r = parseInt(hex.substr(0, 2), 16);
-  const g = parseInt(hex.substr(2, 2), 16);
-  const b = parseInt(hex.substr(4, 2), 16);
-
-  const brightness = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-
-  return +(brightness * 100).toFixed(2); // Return lightness as a number between 0 and 100
 }
 
 function updateDashboard() {
