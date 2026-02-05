@@ -392,9 +392,20 @@ function createTodoList(listId) {
     span.className = "todo__text";
     span.innerHTML = processTextForMentions(todo.text);
 
+    // Date
     const dateSpan = document.createElement("span");
-    dateSpan.className = "todo__date";
-    dateSpan.textContent = todo.date ? `📅 ${todo.date}` : "";
+    dateSpan.className = "todo_date";
+
+    if (todo.date) {
+      const img = document.createElement("img");
+      img.src = "calendar.svg";
+      img.alt = "Due date";
+      img.className = "todo_date-icon";
+
+      const text = document.createTextNode(todo.date);
+
+      dateSpan.append(img, text);
+    }
 
     const badge = document.createElement("span");
     badge.className =

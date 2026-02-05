@@ -49,6 +49,12 @@ button:hover {
   transition: all 0.4s ease-in-out;
   transform: scale(1.05);
 }
+.todo_date img {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  content: url(calendar-white.svg);
+}
 
 .top-bar {
   display: flex;
@@ -809,7 +815,9 @@ body.light-mode .todo-list-container {
   .hamburger-menu {
     display: block;
   }
-
+  .priority-badge {
+    font-size: 0;
+  }
   .mobile-nav {
     display: block;
   }
