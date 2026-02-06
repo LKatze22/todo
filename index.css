@@ -57,16 +57,50 @@ button:hover {
 }
 
 .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-height);
   display: flex;
-  position: sticky;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1em;
-  padding: 0.5em 1em;
-  background: var(--base-color);
-  border-radius: 0.5em;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 1em;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background: var(--surface-color);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.todo-logo-nav {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  display: none;
 }
 
 /* Theme Toggle Switch */
@@ -75,10 +109,10 @@ button:hover {
   padding: 0.75rem 1.5rem;
   border-radius: 0.5em;
   display: flex;
+  height: 6vh;
   color: var(--text-color);
   align-items: center;
   gap: 1em;
-  flex: 1 1 auto;
 }
 
 .theme-toggle-container:hover {
@@ -188,15 +222,15 @@ button:hover {
   text-decoration: none;
 }
 #newListBtn {
-  background: var(--surface-color);
+  background: var(--base-color);
   color: var(--text-color);
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 0.75rem;
   border-radius: 0.5rem;
   cursor: pointer;
+  margin-left: 1.5rem;
   font-weight: 500;
   transition: all 0.2s ease;
-  flex: 1 1 auto;
 }
 .add-btn {
   padding: 0.45em 1em;
@@ -710,15 +744,15 @@ body.light-mode .todo-list-container {
   justify-content: space-around;
   align-items: center;
   padding: 10px;
-  min-height: 80px;
+  height: 60px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background: var(--surface-color);
   border-radius: 0.5rem;
 }
 
 .dashboard .stat svg {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   display: block;
   margin: 0 auto;
   fill: currentColor;
@@ -738,7 +772,7 @@ body.light-mode .todo-list-container {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 7.5px;
 }
 
 .hamburger-menu {
