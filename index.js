@@ -66,7 +66,7 @@ function toggleTheme() {
   const isLightMode = body.classList.contains("light-mode");
 
   if (themeLabel) {
-    themeLabel.textContent = isLightMode ? "Light Mode" : "Dark Mode";
+    themeLabel.textContent = "Light Mode";
   }
 
   // Sync checkbox states
@@ -107,7 +107,7 @@ function loadTheme() {
       }
     } else {
       if (themeLabel) {
-        themeLabel.textContent = "Dark Mode";
+        themeLabel.textContent = "Light Mode";
       }
       if (themeCheckbox) {
         themeCheckbox.checked = false;
