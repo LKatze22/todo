@@ -900,7 +900,7 @@ footer {
   right: 0;
   color: var(--secondary-text-color);
   font-size: 0.9em;
-  background-image: linear-gradient(180deg, #1e1f26 0%, #22262b 100%);
+  background-color: var(--base-color);
 }
 
 .footer-link {
