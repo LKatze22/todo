@@ -1,6 +1,6 @@
 # Todo
 
-A simple, user-friendly Todo web application with all the features you need to manage daily tasks: add, edit, complete, and remove tasks.
+A simple, user-friendly Todo web application with all the features you need to manage daily tasks: add, edit, complete, add a date, add notes, edit notes, add priotry, edit priotry, see checked, unchecked and the overall number of to-dos and remove tasks and add todo lists, edit them or remove. Coming soon is the option that you can see the date the todo was created.
 
 ## Table of contents
 
