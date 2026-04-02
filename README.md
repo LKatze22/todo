@@ -51,7 +51,7 @@ A simple, user-friendly Todo web application with all the features you need to m
 ## Usage
 
 - Open the app in a browser.
-- Use the input to add tasks.
+- Use the input to add tasks and optional details like priority.
 - Click a task to edit or mark as complete.
 - Use the delete button to remove tasks.
 
@@ -81,7 +81,7 @@ Please follow standard git and PR practices.
 
 ## License
 
-Add your license here (for example, MIT). If you don't want to include a license, remove this section.
+Apache 2.0
 
 ## Contact
 
